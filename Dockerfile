@@ -1,7 +1,8 @@
-FROM python
-ENV PYTHONBUFFERED 1
-WORKDIR /app
-ADD . /app
-COPY ./requirements.txt /app/requirements.txt
-RUN pip install -r requirements.txt
-COPY . /app
+FROM python:3
+RUN pip install django==4.1
+
+COPY . .
+
+RUN python manage.py migrate
+CMD ["python","manage.py","runserver","0.0.0.0:8001"]
+
